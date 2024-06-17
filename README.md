@@ -51,7 +51,9 @@ Performing commands on dvd rental database.
 #### SELECT
 Selecting all the rows from table payment.
 
-`SELECT * FROM payment`
+```
+SELECT * FROM payment;
+```
 ![SELECT Statement](images/SELECT_statement.PNG)
 
 #### WHERE
@@ -59,14 +61,16 @@ Selecting all the rows, where amount is greater than 3.
 
 ```
 SELECT * FROM payment
-WHERE amount > 3
+WHERE amount > 3;
 ```
 ![WHERE Keyword](images/SELECT_WHERE_statement.PNG)
 
 #### COUNT
 Counting all the rows of the payment table.
 
-`SELECT COUNT(*) FROM payment`
+```
+SELECT COUNT(*) FROM payment;
+```
 ![COUNT Keyword](images/SELECT_COUNT_statement.PNG)
 
 #### LIKE
@@ -87,5 +91,24 @@ WHERE title LIKE '%Truman%';
 ![COUNT LIKE Keyword](images/LIKE_keyword.PNG)
 
 #### ILIKE
-ILIKE case insensitive version of LIKE.
+ILIKE is case insensitive version of LIKE.
 
+Selecting all the rows of table film, where description has a case insensitive word 'robot' in it. ('roBot' / 'Robot' / 'ROBOT' / 'RoBoT')
+
+```
+SELECT * FROM film
+WHERE description ILIKE '%robot%';
+```
+
+![ILIKE Keyword](images/ILIKE_Keyword.PNG)
+
+#### DISTINCT
+DISTINCT used the find different values.
+
+Selecting distinct districts from address table.
+
+```
+SELECT DISTINCT(district) FROM address;
+```
+
+![DISTINCT Keyword](images/DISTINCT_keyword.PNG)
