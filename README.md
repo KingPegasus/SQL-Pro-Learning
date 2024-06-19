@@ -112,3 +112,153 @@ SELECT DISTINCT(district) FROM address;
 ```
 
 ![DISTINCT Keyword](images/DISTINCT_keyword.PNG)
+
+#### GROUP BY
+Grouping of a column by applying aggregation functionality of other one.
+
+```
+SELECT staff_id, COUNT(*) FROM payment
+GROUP BY staff_id
+```
+
+![GROUP BY Keyword](images/GROUP_BY_Keyword.PNG)
+
+You may use different aggregation function e.g. COUNT, AVG, SUM, etc.
+
+```
+SELECT rating, ROUND(AVG(replacement_cost),2) FROM film
+GROUP BY rating
+```
+
+![GROUP BY AVG Keyword](images/GROUP_BY_AVG_Keyword.PNG)
+
+#### HAVING
+Used after GROUP BY to filter results.
+
+Let's say we need to get customers who have done 40 or more payments/transactions.
+
+```
+SELECT customer_id, COUNT(*) FROM payment
+GROUP BY customer_id
+HAVING COUNT(*)>=40;
+```
+
+NOTE: It doesn't matter for keyword COUNT, which column is inserted. 
+
+![HAVING AVG Keyword](images/HAVING_Keyword.PNG)
+
+
+#### ORDER BY
+Sorting of the data/rows by some column.
+
+Let's say you want to order payments table by amount from max to low.
+
+```
+SELECT * FROM payment
+ORDER BY amount DESC
+```
+
+![ORDER BY Keyword](images/ORDER_BY_Keyword.PNG)
+
+You may order data by some new column generated through aggregation.
+
+Let take an example in which you need to know which are top five customer w.r.t. amount of spending.
+
+```
+SELECT customer_id, SUM(amount) FROM payment
+GROUP BY customer_id
+ORDER BY SUM(amount) DESC
+LIMIT 5
+```
+
+![ORDER BY Aggregated Column](images/ORDER_BY_Aggregated_column.PNG)
+
+#### INNER JOIN - ON
+The INNER JOIN takes the intersection of the two tables based on a specific columns. It returns all the columns of both tables. ON keyword is used with JOIN statements to tell on which condition the tables must be joined.
+
+```
+SELECT * FROM payment
+INNER JOIN customer
+ON payment.customer_id = customer.customer_id
+```
+
+![INNER JOIN on tables](images/INNER_JOIN_ON.PNG)
+
+You may use WHERE keyword to filter results of JOIN and also choose which column to return.
+
+```
+SELECT district, customer.email FROM address
+INNER JOIN customer
+ON address.address_id = customer.address_id
+WHERE district = 'California'
+```
+
+![INNER JOIN with WHERE](images/INNER_JOIN_with_WHERE.PNG)
+
+You may also join multiple tables in a single query. 
+
+```
+SELECT
+	TITLE,
+	ACTOR.FIRST_NAME,
+	ACTOR.LAST_NAME
+FROM
+	FILM
+	INNER JOIN FILM_ACTOR ON FILM_ACTOR.FILM_ID = FILM.FILM_ID
+	INNER JOIN ACTOR ON ACTOR.ACTOR_ID = FILM_ACTOR.ACTOR_ID
+WHERE
+	FIRST_NAME = 'Nick'
+	AND LAST_NAME = 'Wahlberg'
+```
+
+![MULTI INNER JOIN with WHERE](images/MULTI_INNER_JOIN_with_WHERE.PNG)
+
+#### AS
+AS is used to rename column or table.
+
+Let's see AS Keyword in action:
+
+```
+SELECT customer_id, amount AS amount_spent
+FROM payment
+```
+
+![AS Keyword](images/AS_Keyword.PNG)
+
+AS keyword is also used to write clean query by aliasing the table name.
+
+```
+SELECT district, c.email FROM address as a
+INNER JOIN customer as c
+ON a.address_id = c.address_id
+WHERE district = 'California'
+```
+![AS for table name](images/AS_table_name.PNG)
+
+NOTE: You can't use Aliased name for HAVING keyword
+
+![HAVING - Aliased Name](images/HAVING_on_aliased_name.PNG)
+
+#### UNION
+The UNION operator is used to combine the result-set of two or more SELECT statements. 
+
+1. Every SELECT statement within UNION must have the same number of columns
+2. The columns must also have similar data types
+3. The columns in every SELECT statement must also be in the same order
+
+We will be utilizing w3schools.com [example](https://www.w3schools.com/sql/sql_union.asp)
+
+
+![UNION Demo Database](images/UNION_demo_database.PNG)
+
+```
+SELECT City FROM Customers
+UNION
+SELECT City FROM Suppliers
+ORDER BY City;
+```
+
+![UNION Keyword](images/UNION_SQL.PNG)
+
+
+
